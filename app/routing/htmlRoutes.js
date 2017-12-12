@@ -1,6 +1,3 @@
-// Incorporate data modules
-
-
 // Incorporate npm modules
 var path = require("path");
 
@@ -8,7 +5,7 @@ function htmlRoutes(app) {
 
     // GET route for home page
     app.get("/", function(req, res) {
-        res.sendFile(path.join(__dirname, "../public/index.html"));
+        res.sendFile(path.join(__dirname, "../public/home.html"));
         console.log("home path connected");
     });
 
