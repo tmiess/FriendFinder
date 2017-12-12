@@ -159,7 +159,7 @@
             </div>
 
             <h3><strong>Question 10</strong></h3>
-            <h5> question goes here </h5>
+            <h5> Apples should always be washed before they are eaten. </h5>
 
             <div class="input-field col s12">
                 <select required>
@@ -172,11 +172,29 @@
             </select>
             </div>
         </div>
-        <!--submit button-->
+        <!--find friend button-->
         <div class="col s12 center-align">
             <div id="findFriendbtn" class="btn">Find my friend!</div>
         </div>
-        <hr>
+
+        <br>
+
+        <!--modal goes here to display the best friend to the new friend-->
+        <div class="col s12 center-align">
+            <!-- Modal Trigger -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">View My Friend!</a>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div id="bestFriend" class="modal-content">
+                    <h4>You haven't found your best friend yet! Finish the survey and hit "Find my friend!" first!</h4>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
@@ -190,10 +208,23 @@
     </footer>
 
     <script>
-        // initialize dropdown input fields
+        // initialize dropdown input fields and modal
         $(document).ready(function() {
             $('select').material_select();
+            $('.modal').modal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                inDuration: 300, // Transition in duration
+                outDuration: 200, // Transition out duration
+                startingTop: '4%', // Starting top style attribute
+                endingTop: '10%', // Ending top style attribute
+                ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                    console.log(modal, trigger);
+                },
+                complete: function() {} // Callback for Modal close
+            });
         });
+
 
         $("#findFriendbtn").click(function() {
             event.preventDefault();
