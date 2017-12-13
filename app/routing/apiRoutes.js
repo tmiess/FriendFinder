@@ -19,30 +19,44 @@ function apiRoutes(app) {
 
         // logic:
 
-        // once we have the new survey data stored in an array 
-        // (res.params.scores), we will compare it against every person 
-        // in the friends api
-
+        // once we have the new survey data stored in an array (res.params.answers),
+        // , we will compare it against every person in the friends api
+        var newFriend = req.body.answers;
+        console.log("answers: " + newFriend);
         var friendScores = [];
-        var newFriend = req.body.scores;
+        var newScore;
 
-        //compare new friend to all of the friends 
+        // going to compare new friend scores to all of the friend scores 
         for (var i = 0; i < friends.length; i++) {
-            var compareFriend = friends[i].scores;
-            var newScore = 0;
+            // start a new score for each 
+            newScore = 0;
+
+            // isolates answers of one friend
+            var compareFriend = friends[i].answers;
+            console.log("compare friend: " + compareFriend);
 
             // this is the one-on-one comparison
-            for (var j = 0; i < newFriend.length; j++) {
-                var diff = Math.abs(newFriend[j] - compareFriend[j]);
+            for (var j = 0; j < newFriend.length; j++) {
+                var diff = Math.abs(parseInt(newFriend[j]) - parseInt(compareFriend[j]));
                 newScore = newScore + diff;
             }
 
+            // pushes one-on-one scores to the array of all scores
             friendScores.push(newScore);
         }
 
-        var bestScore = Math.min(friendScores);
-        var indexBestFriend = friends.indexOf(bestScore);
-        var bestFriend = friends(indexBestFriend);
+        console.log("all scores: " + friendScores);
+
+        // trick i learned on jstips.com: the "..." will spread the values inside
+        // friendScores array into Math.min()
+        var bestScore = Math.min(...friendScores);
+        console.log("bestScore is: " + bestScore);
+
+        var indexBestFriend = friendScores.indexOf(bestScore);
+        console.log("indexBestFriend is: " + indexBestFriend);
+
+        var bestFriend = friends[indexBestFriend];
+        console.log(bestFriend);
 
         // return the new friend's best friend
         res.json(bestFriend);
